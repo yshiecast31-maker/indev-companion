@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>INDEV Companion</title>
+<style>
+:root{--bg:#0a0c0f;--fg:#e8ece9;--muted:#7a8a80;--line:#1a221c;--ok:#6a9a7a;--bad:#c07070}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:ui-sans-serif,system-ui,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;padding:1.5rem;line-height:1.5}
+main{max-width:40rem;margin:0 auto}
+h1{font-size:1.25rem;font-weight:600;margin-bottom:.25rem}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+.panel{border:1px solid var(--line);border-radius:8px;padding:1rem;margin-bottom:1rem;background:#0d1014}
+label{display:block;font-size:.8rem;color:var(--muted);margin:.6rem 0 .25rem}
+input,textarea{width:100%;background:#080a0c;border:1px solid var(--line);color:var(--fg);padding:.55rem .65rem;border-radius:6px;font:inherit}
+textarea{min-height:4.5rem;resize:vertical}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+button{background:#1a2a22;color:var(--fg);border:1px solid var(--line);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font:inherit}
+button.primary{background:#24352c}
+button:hover{filter:brightness(1.08)}
+.msg{margin-top:.75rem;font-size:.85rem;color:var(--muted)}
+.msg.err{color:var(--bad)}
+.find{border-top:1px solid var(--line);padding:.55rem 0;font-size:.85rem}
+.find b{display:block}
+.find.ok b{color:var(--ok)}
+.find.bad b{color:var(--bad)}
+footer{margin-top:2rem;font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>INDEV Companion</h1>
+  <p class="sub">Private integrity and pairing surface. Not for public distribution.</p>
+  <div class="panel">
+    <h2 style="font-size:1rem;margin-bottom:.5rem">Pairing</h2>
+    <label>Shared root (64 hex)</label>
+    <input id="root" autocomplete="off" spellcheck="false" placeholder="256-bit root shared only with your INDEV instance">
+    <label>Challenge / token from INDEV</label>
+    <textarea id="challenge" placeholder="Paste sealed challenge from INDEV"></textarea>
+    <div class="row">
+      <button class="primary" type="button" id="btnVerify">Verify link</button>
+      <button type="button" id="btnGen">Generate root</button>
+    </div>
+    <div id="pairMsg" class="msg"></div>
+  </div>
+  <div class="panel">
+    <h2 style="font-size:1rem;margin-bottom:.5rem">Integrity suite</h2>
+    <p class="sub" style="margin-bottom:.5rem">Runs local environment and policy checks. Does not modify remote systems.</p>
+    <div class="row">
+      <button class="primary" type="button" id="btnScan">Run checks</button>
+      <button type="button" id="btnExport">Export report</button>
+    </div>
+    <div id="scanOut" style="margin-top:.75rem"></div>
+  </div>
+  <div class="panel">
+    <h2 style="font-size:1rem;margin-bottom:.5rem">Fail-safe actions</h2>
+    <p class="sub">If pairing fails or integrity is degraded, use these on the public INDEV device.</p>
+    <div class="row">
+      <button type="button" id="btnLockHint">Show lock guidance</button>
+    </div>
+    <div id="lockOut" class="msg"></div>
+  </div>
+  <footer>Copyright (c) 2026 Nathanlel / yshiecast31-maker · MIT · Companion build</footer>
+</main>
+<script src="sentinel.js"></script>
+</body>
+</html>
